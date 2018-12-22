@@ -18,8 +18,8 @@ body {
   .placer {
     border-style: solid;
     border-width: 1px;
-      border-color:black;
-      text-align: center;
+    border-color:black;
+    text-align: center;
   }
 
   p {

@@ -155,6 +155,7 @@ function addTime(team) {
         p.html(place + '<br>' + readout);
         p.data("place", place);
         //alert(p.data("place"));
+        p.attr("data-place", place);
         $('#' + team).append(p);
         place++;
     }
@@ -162,6 +163,8 @@ function addTime(team) {
 }
 
 function updateScore(team) {
+
+    tinysort('#'+team+'>div',{attr:'data-place'});
 
     var score = 0;
     $('#' + team).children('div').each(function () {
