@@ -11,12 +11,14 @@
 
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    
+
     <link rel="stylesheet" href="css/jquery.mobile-1.4.4.min.css">
     <link rel="stylesheet" href="css/run.css">
+    <link rel='stylesheet' href='css/spectrum.css' />    
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script src='js/spectrum.js'></script>
 </head>
 
 <body>
@@ -24,6 +26,9 @@
         <table align=center cellpadding=5 border=1 bordercolor=burlywood style="width:100%">
             <tr>
                 <td>
+                    <img src="images/settings.png" width="24" height="24" alt="the Settings icon" title="the Settings icon"
+                        class="float-right" onclick="showSettings()">
+
                     <table cellpadding=3 cellspacing=0 border=0 align=center>
                         <tr valign="center">
                             <td>
@@ -139,6 +144,18 @@
             </tr>
         </table>
     </form>
+
+    <div class="settings" id="settings">
+        <h1>Settings</h1>
+
+        <div class=settingsTeams>
+        </div>
+
+        <img src="images/plus.png"/>
+
+        <button type="button" class="btn settingsCancel" onclick="closeSettings()">Cancel</button>
+        <button type="button" class="btn settingsSave" onclick="saveSettings()">Save</button>
+    </div>
 
     <script src="js/tinysort.min.js"></script>
     <script src="js/run.js"></script>
