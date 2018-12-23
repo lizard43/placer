@@ -11,7 +11,10 @@ var ms = 0;
 var running = 0;
 var place = 1;
 
-var teams = ["team1", "team2", "team3", "team4", "team5", "team6", "team7", "team8", "team9", "team10", "team11"];
+var teams = [
+    { name: 'team1', color: '#eecccc' },
+    { name: 'team2', color: '#ffffff' }
+];
 
 function startTIME() {
 
@@ -177,36 +180,98 @@ function showSettings() {
 
     $('.settingsTeams').empty();
 
+    getCookie();
+
     teams.forEach(team => {
 
-        var teamNode = $("<div></div>").attr('id', 'settingsteam-' + team).attr('class', 'middle');
+        var name = team.name;
 
-        var plusIcon = $("<img src='images/minus.png'></img>");
-        teamNode.append(plusIcon);
+        var teamNode = $("<div></div>").attr('id', 'settingsTeam-' + name).attr('class', 'middle');
 
-        var teamName = $("<input type='text' class='' />").val(team)
+        var minusIcon = $("<img src='images/minus.png'></img>")
+            .attr('id', 'settingsDelete-' + name)
+            .attr('title', 'Delete ' + name)
+            .attr('onClick', "$('" + "#settingsTeam-" + name + "').remove()");
+        teamNode.append(minusIcon);
+
+        var teamName = $("<input type='text' class='' />").val(name)
             .attr('class', 'teamName');
         teamNode.append(teamName);
 
+        teamName.bind("keyup", function(e) {
+            this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+        });
+
         var colorPicker = $("<input/>")
             .attr('type', 'text')
-            .attr('id', 'settingscolor-' + team)
+            .attr('id', 'settingscolor-' + name)
             .attr('class', 'colorPicker');
         teamNode.append(colorPicker);
 
         $('.settingsTeams').append(teamNode);
     });
 
-    $('.colorPicker').spectrum({
-        color: "#ECC",
-        showInput: true,
+    teams.forEach(team => {
+
+        spectrumIt('#settingscolor-' + team.name, team.color);
+
+    });
+
+    document.getElementById("settings").style.display = "block";
+}
+
+function closeSettings() {
+    document.getElementById("settings").style.display = "none";
+}
+
+function saveSettings() {
+
+    var teamNames = $('.settingsTeams').find('.teamName');
+    var teamColors = $('.settingsTeams').find('.colorPicker');
+
+    teams = [];
+
+    teamNames.each(function (index, team) {
+
+        var teamName = team.value;
+        var teamColor = $('#'+teamColors[index].id).spectrum("get").toHexString();
+
+        var t = new Team(teamName, teamColor);
+        teams.push(t);
+    });
+
+
+    saveCookie();
+
+    document.getElementById("settings").style.display = "none";
+}
+
+function getCookie() {
+
+    var teamStr = Cookies.get("teams");
+    if (teamStr) {
+        var teamCookie = JSON.parse(teamStr);
+    }
+}
+
+function saveCookie() {
+
+    var teamStr = JSON.stringify(teams);
+    Cookies.set("teams", teamStr, { expires: 365, path: '' });
+}
+
+function spectrumIt(team, color) {
+
+    $(team).spectrum({
+        color: color,
+        // showInput: true,
         className: "full-spectrum",
-        showInitial: true,
-        showPalette: true,
-        showSelectionPalette: true,
-        maxSelectionSize: 10,
+        // showInitial: true,
+        // showPalette: true,
+        // showSelectionPalette: true,
+        // maxSelectionSize: 10,
         preferredFormat: "hex",
-        localStorageKey: "spectrum.demo",
+        localStorageKey: "placer-colorpicker",
         move: function (color) {
 
         },
@@ -240,17 +305,6 @@ function showSettings() {
         ]
     });
 
-
-    document.getElementById("settings").style.display = "block";
-}
-
-function closeSettings() {
-    document.getElementById("settings").style.display = "none";
-}
-
-function saveSettings() {
-
-    document.getElementById("settings").style.display = "none";
 }
 
 class Team {
@@ -259,7 +313,6 @@ class Team {
         this.color = color;
     }
 }
-
 
 $(function () {
     $("#team1button").click(function () { addTime('team1'); });
