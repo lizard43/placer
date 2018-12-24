@@ -1,3 +1,4 @@
+<!-- https://lizard43.com -->
 <html>
 
 <head>
@@ -14,19 +15,23 @@
 
     <link rel="stylesheet" href="css/jquery.mobile-1.4.4.min.css">
     <link rel="stylesheet" href="css/run.css">
-    <link rel='stylesheet' href='css/spectrum.css' />    
+    <link rel='stylesheet' href='css/spectrum.css' />
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/jquery.mobile-1.4.4.min.js"></script>
     <script src='js/spectrum.js'></script>
     <script src="js/js.cookie.min.js"></script>
+    <script src="js/tinysort.min.js"></script>
+
 </head>
 
 <body>
     <form name="clockform">
-        <table align=center cellpadding=5 border=1 bordercolor=burlywood style="width:100%">
+        <table align=center cellpadding=5 style="width:100%">
             <tr>
                 <td>
+                    <img src="images/questiong.png" width="24" height="24" alt="the help icon" title="the help icon"
+                        class="float-left" onclick="showHelp()">
                     <img src="images/settings.png" width="24" height="24" alt="the Settings icon" title="the Settings icon"
                         class="float-right" onclick="showSettings()">
 
@@ -44,102 +49,20 @@
                         </tr>
                     </table>
                     <div class="scrollit">
-                        <table id="score_table" cellpadding=3 cellspacing=0 border=0 align=center>
+                        <table id="score_table" cellpadding='3' cellspacing='0' border='0' align='center'>
 
-                            <tr id="score_table_row0">
-                                <td align="center">
-                                    <p id="team1score">0</p>
-                                    <input id="team1button" type="button" value="Car" style="background:darkblue">
-                                </td>
-                                <td align="center">
-                                    <p id="team2score">0</p>
-                                    <input id="team2button" type="button" value="BD" style="background:gold">
-                                </td>
-                                <td align="center">
-                                    <p id="team3score">0</p>
-                                    <input id="team3button" type="button" value="Con" style="background:maroon">
-                                </td>
-                                <td align="center">
-                                    <p id="team4score">0</p>
-                                    <input id="team4button" type="button" value="Hom" style="background:lightblue">
-                                </td>
-                            </tr>
-                            <tr id="score_table_placer_row0">
-                                <td valign="top">
-                                    <div id="team1" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team2" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team3" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team4" valign="top"></div>
-                                </td>
-                            </tr>
+                            <tr id="score_table_row0"></tr>
+                            <tr id="score_table_placer_row0"></tr>
 
-                            <tr id="score_table_row1">
-                                <td align="center">
-                                    <p id="team5score">0</p>
-                                    <input id="team5button" type="button" value="Leo" style="background:purple">
-                                </td>
-                                <td align="center">
-                                    <p id="team6score">0</p>
-                                    <input id="team6button" type="button" value="EN" style="background: lightgoldenrodyellow">
-                                </td>
-                                <td align="center">
-                                    <p id="team7score">0</p>
-                                    <input id="team7button" type="button" value="WN" style="background:red">
-                                </td>
-                                <td align="center">
-                                    <p id="team8score">0</p>
-                                    <input id="team8button" type="button" value="Ang" style="background:magenta">
-                                </td>
-                            </tr>
-                            <tr id="score_table_placer_row1">
-                                <td valign="top">
-                                    <div id="team5" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team6" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team7" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team8" valign="top"></div>
-                                </td>
-                            </tr>
+                            <tr id="score_table_row1"></tr>
+                            <tr id="score_table_placer_row1"></tr>
 
-                            <tr id="score_table_row2">
-                                <td align="center">
-                                    <p id="team9score">0</p>
-                                    <input id="team9button" type="button" value="Dek" style="background:black">
-                                </td>
-                                <td align="center">
-                                    <p id="team10score">0</p>
-                                    <input id="team10button" type="button" value="WV" style="background:rosybrown">
-                                </td>
-                                <td align="center">
-                                    <p id="team11score">0</p>
-                                    <input id="team11button" type="button" value="Ind" style="background:white">
-                                </td>
-                            </tr>
-                            <tr id="score_table_placer_row2">
-                                <td valign="top">
-                                    <div id="team9" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team10" valign="top"></div>
-                                </td>
-                                <td valign="top">
-                                    <div id="team11" valign="top"></div>
-                                </td>
-                            </tr>
+                            <tr id="score_table_row2"></tr>
+                            <tr id="score_table_placer_row2"></tr>
 
                         </table>
                     </div>
+                </td>
             </tr>
         </table>
     </form>
@@ -150,15 +73,16 @@
         <div class=settingsTeams>
         </div>
 
-        <img src="images/plus.png" title="Add team" onclick="newTeam()"/>
+        <img src="images/plus.png" title="Add team" onclick="newTeam()" />
 
         <button type="button" class="btn settingsCancel" onclick="closeSettings()">Cancel</button>
         <button type="button" class="btn settingsSave" onclick="saveSettings()">Save</button>
     </div>
 
-    <script src="js/tinysort.min.js"></script>
     <script src="js/run.js"></script>
 
 </body>
-
+<footer>
+    <p>© 2018 lizard43</p>
+</footer>
 </html>

@@ -8,11 +8,16 @@ body {
 }
 
 #score_table {
+  table-layout: fixed; 
   width: 100%;
 }
 
 #score_table td {
   width: 25%;
+}
+
+.buttonteam {
+  width:100%;
 }
 
 .placer {
@@ -22,13 +27,21 @@ body {
   text-align: center;
 }
 
-p {
+.scoreteam {
   color: black;
   font-weight: bolder;
 }
 
+.float-left {
+  float: left;
+}
+
 .float-right {
   float: right;
+}
+
+footer p {
+  text-align: center;
 }
 
 /* --------- settings ------------------------ */

@@ -1,5 +1,5 @@
 //
-// https://github.com/lizard43/placer
+// https://lizard43.com
 //
 
 // clock stuff
@@ -129,9 +129,13 @@ function clearALL() {
 
     $("#starter").text('Start');
 
-    for (var team in teams) {
-        $('#' + teams[team]).empty();
-        $('#' + teams[team] + 'score').text('0');
+    // clear score table
+    for (let i of ['0','1','2']) {
+        $('#' + 'score_table_placer_row' + i).empty();
+    }
+
+    for (var team of teams) {
+        $('#' + team.name + 'score').text('0');
     }
 }
 
@@ -158,21 +162,21 @@ function swipeLeftHandler(event) {
 // Gets the team to the RIGHT
 //
 function getRight(team) {
-    var index = teams.indexOf(team) + 1;
+    var index = teams.findIndex(t => t.name === team) + 1;
     if (index > (teams.length - 1)) {
         index = 0;
     }
-    return teams[index];
+    return teams[index].name;
 }
 
 // Gets the team to the LEFT
 //
 function getLeft(team) {
-    var index = teams.indexOf(team) - 1;
+    var index = teams.findIndex(t => t.name === team) - 1;
     if (index < 0) {
         index = (teams.length - 1);
     }
-    return teams[index];
+    return teams[index].name;
 }
 
 // Adds a place to the selected team
@@ -268,6 +272,11 @@ function newTeam() {
     // how many current teams?
     var teamCount =  $('.settingsTeams').find('.teamName').length;
 
+    if (teamCount === 8) {
+        window.alert("This version has a maximum team count of " + teamCount);
+        return;
+    }
+
     var name = 'team' + (teamCount + 1);
     addTeam(name);
     spectrumIt('#settingscolor-' + name, '#ffffff');
@@ -300,6 +309,8 @@ function saveSettings() {
 
 
     saveCookie();
+
+    buildScoreTable();
 
     document.getElementById("settings").style.display = "none";
 }
@@ -395,6 +406,48 @@ function buildScoreTable() {
         var name = team.name;
         var color = team.color;
 
+        // build the TD that holds the score and team button
+
+        var td = $('<td/>', {
+            class: 'tdteam',
+            align: 'center'
+        });
+
+        var p =  $('<div/>', {
+            class: 'scoreteam',
+            id: name + 'score'
+        });
+        p.text('0');
+        td.append(p);
+
+        var input =  $('<input/>', {
+            class: 'buttonteam',
+            id: name + 'button',
+            type: 'button',
+            value: name,
+            style: 'background: ' + color,
+            onclick: 'addTime("' + name + '");'
+        });
+        td.append(input);
+
+        $('#' + 'score_table_row' + row).append(td);
+
+        // build the TD that holds the placers
+
+        var tdp = $('<td/>', {
+            class: 'tdplacer',
+            valign: 'top'
+        });
+
+        var div =  $('<div/>', {
+            class: 'teamplacer',
+            valign: 'top',
+            id: name
+        });
+        tdp.append(div);
+
+        $('#' + 'score_table_placer_row' + row).append(tdp);
+
         teamNumber++;
     });
 }
@@ -402,17 +455,6 @@ function buildScoreTable() {
 // Main
 //
 $(function () {
-    // $("#team1button").click(function () { addTime('team1'); });
-    // $("#team2button").click(function () { addTime('team2'); });
-    // $("#team3button").click(function () { addTime('team3'); });
-    // $("#team4button").click(function () { addTime('team4'); });
-    // $("#team5button").click(function () { addTime('team5'); });
-    // $("#team6button").click(function () { addTime('team6'); });
-    // $("#team7button").click(function () { addTime('team7'); });
-    // $("#team8button").click(function () { addTime('team8'); });
-    // $("#team9button").click(function () { addTime('team9'); });
-    // $("#team10button").click(function () { addTime('team10'); });
-    // $("#team11button").click(function () { addTime('team11'); });
 
     // load saved teams from cookie 
     // or return defaults if no cookie found
