@@ -1,5 +1,10 @@
-var base = 60;
+//
+// https://github.com/lizard43/placer
+//
 
+// clock stuff
+
+var base = 60;
 var clocktimer, dateObj, dh, dm, ds, ms;
 var readout = '';
 var h = 1;
@@ -11,11 +16,21 @@ var ms = 0;
 var running = 0;
 var place = 1;
 
-var teams = [
-    { name: 'team1', color: '#eecccc' },
-    { name: 'team2', color: '#ffffff' }
-];
+// Team class
+//
+class Team {
+    constructor(name, color) {
+        this.name = name;
+        this.color = color;
+    }
+}
 
+// the main object, this array holds Team objects which
+// is used to score table
+var teams = [];
+
+// starts the Timer
+//
 function startTIME() {
 
     var cdateObj = new Date();
@@ -87,6 +102,8 @@ function startTIME() {
     clocktimer = setTimeout("startTIME()", 1);
 }
 
+// Start or Stops timer
+//
 function findTIME() {
     if (running === 0) {
         $("#starter").text('Stop');
@@ -100,6 +117,8 @@ function findTIME() {
     }
 }
 
+// Clears times, scores and places
+//
 function clearALL() {
     clearTimeout(clocktimer);
     h = 1; m = 1; tm = 1; s = 0; ts = 0; ms = 0;
@@ -116,6 +135,8 @@ function clearALL() {
     }
 }
 
+// moves a place to the team to the RIGHT and updates scores
+//
 function swipeRightHandler(event) {
     var current = event.currentTarget.parentNode.id;
     var right = getRight(current);
@@ -124,6 +145,8 @@ function swipeRightHandler(event) {
     updateScore(right);
 }
 
+// moves a place to the team to the LEFT and updates scores
+//
 function swipeLeftHandler(event) {
     var current = event.currentTarget.parentNode.id;
     var left = getLeft(current);
@@ -132,6 +155,8 @@ function swipeLeftHandler(event) {
     updateScore(left);
 }
 
+// Gets the team to the RIGHT
+//
 function getRight(team) {
     var index = teams.indexOf(team) + 1;
     if (index > (teams.length - 1)) {
@@ -140,6 +165,8 @@ function getRight(team) {
     return teams[index];
 }
 
+// Gets the team to the LEFT
+//
 function getLeft(team) {
     var index = teams.indexOf(team) - 1;
     if (index < 0) {
@@ -148,6 +175,8 @@ function getLeft(team) {
     return teams[index];
 }
 
+// Adds a place to the selected team
+//
 function addTime(team) {
     if (running > 0) {
         var p = $('<div/>', {
@@ -157,7 +186,6 @@ function addTime(team) {
         p.on("swipeleft", swipeLeftHandler);
         p.html(place + '<br>' + readout);
         p.data("place", place);
-        //alert(p.data("place"));
         p.attr("data-place", place);
         $('#' + team).append(p);
         place++;
@@ -165,6 +193,8 @@ function addTime(team) {
     updateScore(team);
 }
 
+// Sorts the places and calculates the team's score
+//
 function updateScore(team) {
 
     tinysort('#' + team + '>div', { attr: 'data-place' });
@@ -176,54 +206,82 @@ function updateScore(team) {
     $('#' + team + 'score').text(score);
 }
 
+// Shows the settings screen.
+// Builds selections to change team name and color
+//
 function showSettings() {
 
     $('.settingsTeams').empty();
 
-    getCookie();
+    teams = getCookie();
 
     teams.forEach(team => {
 
         var name = team.name;
 
-        var teamNode = $("<div></div>").attr('id', 'settingsTeam-' + name).attr('class', 'middle');
-
-        var minusIcon = $("<img src='images/minus.png'></img>")
-            .attr('id', 'settingsDelete-' + name)
-            .attr('title', 'Delete ' + name)
-            .attr('onClick', "$('" + "#settingsTeam-" + name + "').remove()");
-        teamNode.append(minusIcon);
-
-        var teamName = $("<input type='text' class='' />").val(name)
-            .attr('class', 'teamName');
-        teamNode.append(teamName);
-
-        teamName.bind("keyup", function(e) {
-            this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
-        });
-
-        var colorPicker = $("<input/>")
-            .attr('type', 'text')
-            .attr('id', 'settingscolor-' + name)
-            .attr('class', 'colorPicker');
-        teamNode.append(colorPicker);
-
-        $('.settingsTeams').append(teamNode);
+        addTeam(name)
     });
 
+    // create color pickers
     teams.forEach(team => {
-
         spectrumIt('#settingscolor-' + team.name, team.color);
-
     });
 
+    // make visible
     document.getElementById("settings").style.display = "block";
 }
 
+// builds the team nodes in settings
+//
+function addTeam(name) {
+
+    var teamNode = $("<div></div>").attr('id', 'settingsTeam-' + name).attr('class', 'middle');
+
+    var minusIcon = $("<img src='images/minus.png'></img>")
+        .attr('id', 'settingsDelete-' + name)
+        .attr('title', 'Delete ' + name)
+        .attr('onClick', "$('" + "#settingsTeam-" + name + "').remove()");
+    teamNode.append(minusIcon);
+
+    var teamName = $("<input type='text' class='' />").val(name)
+        .attr('class', 'teamName');
+    teamNode.append(teamName);
+
+    // only allow team names a-Z and 0-9
+    teamName.bind("keyup", function (e) {
+        this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+    });
+
+    var colorPicker = $("<input/>")
+        .attr('type', 'text')
+        .attr('id', 'settingscolor-' + name)
+        .attr('class', 'colorPicker');
+    teamNode.append(colorPicker);
+
+    $('.settingsTeams').append(teamNode);
+}
+
+// adds a new team
+//
+function newTeam() {
+
+    // how many current teams?
+    var teamCount =  $('.settingsTeams').find('.teamName').length;
+
+    var name = 'team' + (teamCount + 1);
+    addTeam(name);
+    spectrumIt('#settingscolor-' + name, '#ffffff');
+}
+
+// Hide settings screen
+//
 function closeSettings() {
+    $('.settingsTeams').empty();
     document.getElementById("settings").style.display = "none";
 }
 
+// Save settings
+//
 function saveSettings() {
 
     var teamNames = $('.settingsTeams').find('.teamName');
@@ -234,7 +292,7 @@ function saveSettings() {
     teamNames.each(function (index, team) {
 
         var teamName = team.value;
-        var teamColor = $('#'+teamColors[index].id).spectrum("get").toHexString();
+        var teamColor = $('#' + teamColors[index].id).spectrum("get").toHexString();
 
         var t = new Team(teamName, teamColor);
         teams.push(t);
@@ -246,20 +304,33 @@ function saveSettings() {
     document.getElementById("settings").style.display = "none";
 }
 
+// Gets team cookie, 
+// returns default data if no cookie found
+//
 function getCookie() {
 
     var teamStr = Cookies.get("teams");
     if (teamStr) {
-        var teamCookie = JSON.parse(teamStr);
+        return JSON.parse(teamStr);
+    } else {
+        return [
+            { name: 'team1', color: '#8a3be5' },
+            { name: 'team2', color: '#ffffff' }
+        ];
+
     }
 }
 
+// Saves team cookie
+//
 function saveCookie() {
 
     var teamStr = JSON.stringify(teams);
     Cookies.set("teams", teamStr, { expires: 365, path: '' });
 }
 
+// Create color picker
+//
 function spectrumIt(team, color) {
 
     $(team).spectrum({
@@ -304,26 +375,49 @@ function spectrumIt(team, color) {
                 "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
         ]
     });
-
 }
 
-class Team {
-    constructor(name, color) {
-        this.name = name;
-        this.color = color;
+// Build score table
+//
+function buildScoreTable() {
+
+    // clear score table
+    for (let i of ['0','1','2']) {
+        $('#' + 'score_table_row' + i).empty();
+        $('#' + 'score_table_placer_row' + i).empty();
     }
+
+    var teamNumber = 0;
+    teams.forEach(team => {
+
+        var row = Math.floor(teamNumber / 4);
+
+        var name = team.name;
+        var color = team.color;
+
+        teamNumber++;
+    });
 }
 
+// Main
+//
 $(function () {
-    $("#team1button").click(function () { addTime('team1'); });
-    $("#team2button").click(function () { addTime('team2'); });
-    $("#team3button").click(function () { addTime('team3'); });
-    $("#team4button").click(function () { addTime('team4'); });
-    $("#team5button").click(function () { addTime('team5'); });
-    $("#team6button").click(function () { addTime('team6'); });
-    $("#team7button").click(function () { addTime('team7'); });
-    $("#team8button").click(function () { addTime('team8'); });
-    $("#team9button").click(function () { addTime('team9'); });
-    $("#team10button").click(function () { addTime('team10'); });
-    $("#team11button").click(function () { addTime('team11'); });
+    // $("#team1button").click(function () { addTime('team1'); });
+    // $("#team2button").click(function () { addTime('team2'); });
+    // $("#team3button").click(function () { addTime('team3'); });
+    // $("#team4button").click(function () { addTime('team4'); });
+    // $("#team5button").click(function () { addTime('team5'); });
+    // $("#team6button").click(function () { addTime('team6'); });
+    // $("#team7button").click(function () { addTime('team7'); });
+    // $("#team8button").click(function () { addTime('team8'); });
+    // $("#team9button").click(function () { addTime('team9'); });
+    // $("#team10button").click(function () { addTime('team10'); });
+    // $("#team11button").click(function () { addTime('team11'); });
+
+    // load saved teams from cookie 
+    // or return defaults if no cookie found
+    teams = getCookie();
+
+    // rebuild score table
+    buildScoreTable();
 });

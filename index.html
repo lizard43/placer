@@ -46,7 +46,7 @@
                     <div class="scrollit">
                         <table id="score_table" cellpadding=3 cellspacing=0 border=0 align=center>
 
-                            <tr>
+                            <tr id="score_table_row0">
                                 <td align="center">
                                     <p id="team1score">0</p>
                                     <input id="team1button" type="button" value="Car" style="background:darkblue">
@@ -64,7 +64,7 @@
                                     <input id="team4button" type="button" value="Hom" style="background:lightblue">
                                 </td>
                             </tr>
-                            <tr>
+                            <tr id="score_table_placer_row0">
                                 <td valign="top">
                                     <div id="team1" valign="top"></div>
                                 </td>
@@ -79,7 +79,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr id="score_table_row1">
                                 <td align="center">
                                     <p id="team5score">0</p>
                                     <input id="team5button" type="button" value="Leo" style="background:purple">
@@ -97,7 +97,7 @@
                                     <input id="team8button" type="button" value="Ang" style="background:magenta">
                                 </td>
                             </tr>
-                            <tr>
+                            <tr id="score_table_placer_row1">
                                 <td valign="top">
                                     <div id="team5" valign="top"></div>
                                 </td>
@@ -112,7 +112,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr id="score_table_row2">
                                 <td align="center">
                                     <p id="team9score">0</p>
                                     <input id="team9button" type="button" value="Dek" style="background:black">
@@ -126,7 +126,7 @@
                                     <input id="team11button" type="button" value="Ind" style="background:white">
                                 </td>
                             </tr>
-                            <tr>
+                            <tr id="score_table_placer_row2">
                                 <td valign="top">
                                     <div id="team9" valign="top"></div>
                                 </td>
@@ -137,8 +137,6 @@
                                     <div id="team11" valign="top"></div>
                                 </td>
                             </tr>
-
-
 
                         </table>
                     </div>
@@ -152,7 +150,7 @@
         <div class=settingsTeams>
         </div>
 
-        <img src="images/plus.png" title="Add team"/>
+        <img src="images/plus.png" title="Add team" onclick="newTeam()"/>
 
         <button type="button" class="btn settingsCancel" onclick="closeSettings()">Cancel</button>
         <button type="button" class="btn settingsSave" onclick="saveSettings()">Save</button>
