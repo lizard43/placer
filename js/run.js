@@ -130,7 +130,7 @@ function clearALL() {
     $("#starter").text('Start');
 
     // clear score table
-    for (let i of ['0','1','2']) {
+    for (let i of ['0', '1', '2']) {
         $('#' + 'score_table_placer_row' + i).empty();
     }
 
@@ -217,7 +217,7 @@ function showSettings() {
 
     $('.settingsTeams').empty();
 
-    teams = getCookie();
+    teams = getTeamCookie();
 
     teams.forEach(team => {
 
@@ -232,7 +232,7 @@ function showSettings() {
     });
 
     // make visible
-    document.getElementById("settings").style.display = "block";
+    $('#settingsScreen').show();
 }
 
 // builds the team nodes in settings
@@ -270,23 +270,24 @@ function addTeam(name) {
 function newTeam() {
 
     // how many current teams?
-    var teamCount =  $('.settingsTeams').find('.teamName').length;
+    var teamCount = $('.settingsTeams').find('.teamName').length;
 
     if (teamCount === 8) {
         window.alert("This version has a maximum team count of " + teamCount);
         return;
     }
 
-    var name = 'team' + (teamCount + 1);
+    var name = Math.random().toString(36).substr(2, 5) + '-' + (teamCount + 1);
     addTeam(name);
-    spectrumIt('#settingscolor-' + name, '#ffffff');
+    // var randomColor = '#' + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
+    var randomColor = 'hsla(' + (Math.floor(Math.random()*360)) + ', 100%, 70%, 1)';
+    spectrumIt('#settingscolor-' + name, randomColor);
 }
 
 // Hide settings screen
 //
 function closeSettings() {
-    $('.settingsTeams').empty();
-    document.getElementById("settings").style.display = "none";
+    $('#settingsScreen').hide();
 }
 
 // Save settings
@@ -312,13 +313,13 @@ function saveSettings() {
 
     buildScoreTable();
 
-    document.getElementById("settings").style.display = "none";
+    $('#settingsScreen').hide();
 }
 
 // Gets team cookie, 
 // returns default data if no cookie found
 //
-function getCookie() {
+function getTeamCookie() {
 
     var teamStr = Cookies.get("teams");
     if (teamStr) {
@@ -393,7 +394,7 @@ function spectrumIt(team, color) {
 function buildScoreTable() {
 
     // clear score table
-    for (let i of ['0','1','2']) {
+    for (let i of ['0', '1', '2']) {
         $('#' + 'score_table_row' + i).empty();
         $('#' + 'score_table_placer_row' + i).empty();
     }
@@ -413,14 +414,14 @@ function buildScoreTable() {
             align: 'center'
         });
 
-        var p =  $('<div/>', {
+        var p = $('<div/>', {
             class: 'scoreteam',
             id: name + 'score'
         });
         p.text('0');
         td.append(p);
 
-        var input =  $('<input/>', {
+        var input = $('<input/>', {
             class: 'buttonteam',
             id: name + 'button',
             type: 'button',
@@ -439,7 +440,7 @@ function buildScoreTable() {
             valign: 'top'
         });
 
-        var div =  $('<div/>', {
+        var div = $('<div/>', {
             class: 'teamplacer',
             valign: 'top',
             id: name
@@ -452,14 +453,71 @@ function buildScoreTable() {
     });
 }
 
+//
+//
+function showCookies() {
+    // make visible
+    $('#cookiesScreen').show();
+}
+
+//
+//
+function acceptCookies() {
+
+    Cookies.set("cookiePolicy", JSON.stringify({ accepted: true, date: new Date() }),
+        { expires: 365, path: '' });
+
+    helpScreen1();
+
+    // hide
+    $('#cookiesScreen').hide();
+}
+
+// Looks to see if user has accepted the Cookie Policy
+//
+function acceptedCookie() {
+    var policy = Cookies.get("cookiePolicy");
+    if (policy) {
+        return true;
+    }
+    return false;
+}
+
+//
+//
+function helpScreen1() {
+    // make visible
+    $('#helpScreen1').show();
+}
+
+//
+//
+function helpScreen1Next() {
+    setup();
+
+    // hide
+    $('#helpScreen1').hide();
+}
+
+//
+//
+function setup() {
+
+    // load saved teams from cookie 
+    // or return defaults if no cookie found
+    teams = getTeamCookie();
+
+    // rebuild score table
+    buildScoreTable();
+}
+
 // Main
 //
 $(function () {
 
-    // load saved teams from cookie 
-    // or return defaults if no cookie found
-    teams = getCookie();
-
-    // rebuild score table
-    buildScoreTable();
+    if (acceptedCookie()) {
+        setup();
+    } else {
+        showCookies();
+    }
 });

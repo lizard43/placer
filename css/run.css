@@ -47,7 +47,7 @@ footer p {
 /* --------- settings ------------------------ */
 
 /* The settings form - hidden by default */
-.settings {
+.settingsScreen {
   display: none;
   position: fixed;
   top: 0px;
@@ -62,11 +62,11 @@ footer p {
   z-index: 9;
 }
 
-.settings h1 {
+.settingsScreen h1 {
   text-align: center;
 }
 
-.settings .btn {
+.settingsScreen .btn {
   background-color: #4CAF50;
   color: white;
   border-style: solid;
@@ -80,16 +80,16 @@ footer p {
   float: right;
 }
 
-.settings .settingsCancel {
+.settingsScreen .settingsCancel {
   background-color: rgb(155, 146, 146);
 }
 
 /* Add some hover effects to buttons */
-.settings .btn:hover, .open-button:hover {
+.settingsScreen .btn:hover, .open-button:hover {
   opacity: 1;
 }
 
-.settings img {
+.settingsScreen img {
   width: 30px;
   height: 30px;
   padding: 10px;
@@ -103,4 +103,107 @@ footer p {
 
 .middle > * {
   vertical-align: middle;
+}
+
+/* --------- accept cookies ------------------------ */
+
+/* The accept cookies form - hidden by default */
+.cookiesScreen {
+  display: none;
+  overflow:auto;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.cookiesScreen h1 {
+  text-align: center;
+}
+
+.cookiesScreen img {
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;  
+}
+
+.cookiesScreen .btn {
+  background-color: #4CAF50;
+  color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color:black;
+  text-align: center;
+  cursor: pointer;
+  width: 75%;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cookiesScreen h3 {
+  width: 90%;
+}
+
+.cookiesScreen p {
+  width: 90%;
+}
+
+.cookiesScreen li {
+  width: 80%;
+}
+
+/* --------- help screens ------------------------ */
+
+/* The help form - hidden by default */
+.helpScreen1 {
+  display: none;
+  overflow:auto;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.helpScreen1 h1 {
+  text-align: center;
+}
+
+.helpScreen1 img {
+  padding: 10px;
+  /* display: block;
+  margin-left: auto;
+  margin-right: auto; */
+  border:1px solid black;
+  border-color: black;
+}
+
+.helpScreen1 .btn {
+  background-color: #4CAF50;
+  color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color:black;
+  text-align: center;
+  cursor: pointer;
+  width: 75%;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
 }
