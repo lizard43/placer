@@ -1,0 +1,67 @@
+/* https://lizard43.com */
+
+/* --------- accept cookies ------------------------ */
+
+body {
+  width: 98%;
+  margin: 4px;
+}
+
+.cookiesScreen {
+  overflow:auto;
+  height: 100%;
+  padding: 10px;
+  background-color: white;
+
+  border: 3px solid #f1f1f1;
+}
+
+.cookiesScreen h1 {
+  text-align: center;
+}
+
+.cookiesScreen img {
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 25%;  
+}
+
+.cookiesScreen .btn {
+  background-color: #4CAF50;
+  color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color:black;
+  text-align: center;
+  cursor: pointer;
+  width: 75%;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cookiesScreen h3 {
+  width: 90%;
+}
+
+.cookiesScreen p {
+  width: 90%;
+}
+
+.cookiesScreen li {
+  width: 80%;
+}
+
+.footer p {
+  text-align: center;
+}
+
+.footer {
+  margin-top: 100px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+  bottom: 0;
+}

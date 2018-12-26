@@ -1,0 +1,53 @@
+/* https://lizard43.com */
+
+/* --------- help screens ------------------------ */
+
+/* The help form  */
+.helpScreen {
+  overflow:auto;
+  padding: 10px;
+  background-color: white;
+
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.helpScreen h1 {
+  text-align: center;
+}
+
+.helpScreen img {
+  width: 80%;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border:1px solid black;
+  border-color: black;
+}
+
+.helpScreen .btn {
+  background-color: #4CAF50;
+  color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-color:black;
+  text-align: center;
+  cursor: pointer;
+  width: 75%;
+  opacity: 0.8;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer p {
+  text-align: center;
+}
+
+.footer {
+  margin-top: 100px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+  bottom: 0;
+}

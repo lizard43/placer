@@ -16,15 +16,6 @@ var ms = 0;
 var running = 0;
 var place = 1;
 
-// Team class
-//
-class Team {
-    constructor(name, color) {
-        this.name = name;
-        this.color = color;
-    }
-}
-
 // the main object, this array holds Team objects which
 // is used to score table
 var teams = [];
@@ -455,23 +446,10 @@ function buildScoreTable() {
 
 //
 //
-function showCookies() {
-    // make visible
-    $('#cookiesScreen').show();
+function showCookiePolicy() {
+    window.location.assign("/cookies.html");
 }
 
-//
-//
-function acceptCookies() {
-
-    Cookies.set("cookiePolicy", JSON.stringify({ accepted: true, date: new Date() }),
-        { expires: 365, path: '' });
-
-    helpScreen1();
-
-    // hide
-    $('#cookiesScreen').hide();
-}
 
 // Looks to see if user has accepted the Cookie Policy
 //
@@ -511,6 +489,18 @@ function setup() {
     buildScoreTable();
 }
 
+//
+//
+function showSettings() {
+    window.location.assign("/settings.html");
+}
+
+//
+//
+function showHelp() {
+    window.location.assign("/help.html");
+}
+
 // Main
 //
 $(function () {
@@ -518,6 +508,6 @@ $(function () {
     if (acceptedCookie()) {
         setup();
     } else {
-        showCookies();
+        showCookiePolicy();
     }
 });
