@@ -107,7 +107,9 @@ function getTeamCookie(teams) {
     } else {
         return [
             { name: 'team1', color: '#8a3be5' },
-            { name: 'team2', color: '#ffffff' }
+            { name: 'team2', color: '#f65f3f' },
+            { name: 'team3', color: '#e0657f' },
+            { name: 'team4', color: '#9ff76f' }
         ];
 
     }
