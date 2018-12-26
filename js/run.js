@@ -146,7 +146,7 @@ function swipeLeftHandler(event) {
 // Gets the team to the RIGHT
 //
 function getRight(team) {
-    var index = teams.findIndex(t => t.name === team) + 1;
+    var index = teams.findIndex(function(t) { return (t.name === team) }) + 1;
     if (index > (teams.length - 1)) {
         index = 0;
     }
@@ -156,7 +156,7 @@ function getRight(team) {
 // Gets the team to the LEFT
 //
 function getLeft(team) {
-    var index = teams.findIndex(t => t.name === team) - 1;
+    var index = teams.findIndex(function(t) { return ( t.name === team) }) - 1;
     if (index < 0) {
         index = (teams.length - 1);
     }
@@ -203,7 +203,7 @@ function showSettings() {
 
     teams = getTeamCookie();
 
-    teams.forEach(team => {
+    teams.forEach(function(team) {
 
         var name = team.name;
 
@@ -211,7 +211,7 @@ function showSettings() {
     });
 
     // create color pickers
-    teams.forEach(team => {
+    teams.forEach(function(team) {
         spectrumIt('#settingscolor-' + team.name, team.color);
     });
 
@@ -385,7 +385,7 @@ function buildScoreTable() {
     }
 
     var teamNumber = 0;
-    teams.forEach(team => {
+    teams.forEach(function(team) {
 
         var row = Math.floor(teamNumber / 4);
 
