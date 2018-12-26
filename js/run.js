@@ -25,6 +25,7 @@ var teams = [];
 function startTIME() {
 
     var cdateObj = new Date();
+
     var t = (cdateObj.getTime() - dateObj.getTime()) - (s * 1000);
 
     if (t > 999) {
@@ -100,6 +101,12 @@ function findTIME() {
         $("#starter").text('Stop');
         running = 1;
         dateObj = new Date();
+        // h = 1;
+        // m = 1;
+        // tm = 1;
+        s = 0;
+        // ts = 0;
+        // ms = 0;
         startTIME();
     } else {
         $("#starter").text('Start');
