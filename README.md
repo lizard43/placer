@@ -1,4 +1,23 @@
 # placer
-running app to estimate team placement
+A cross country scoring aid. You set up the teams in the race, start the timer and as runners cross the finish line, press the team and Placer will keep the score.
 
-<img src="https://github.com/lizard43/placer/blob/master/images/placer.png" width="500">
+If you press the wrong team, places can be moved from team to team.
+
+Learn about cross country scoring here: <a href="https://en.wikipedia.org/wiki/Cross_country_running#Scoring">wikipedia</a>
+
+<img src="https://github.com/lizard43/placer/blob/master/images/help1.png" width="500">
+
+Click the gear icon to go to setting screen and set up your teams.
+
+<img src="https://github.com/lizard43/placer/blob/master/images/setup1.png" width="500">
+        
+<img src="https://github.com/lizard43/placer/blob/master/images/setup2.png" width="500">
+        
+Save your team and return to the main screen.
+
+<img src="https://github.com/lizard43/placer/blob/master/images/help2.png" width="500">
+
+<img src="https://github.com/lizard43/placer/blob/master/images/help3.png" width="500">
+
+<img src="https://github.com/lizard43/placer/blob/master/images/help4.png" width="500">
+
