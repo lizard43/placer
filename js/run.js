@@ -120,14 +120,7 @@ function clearALL() {
 
     $("#starter").text('Start');
 
-    // clear score table
-    for (let i of ['0', '1', '2']) {
-        $('#' + 'score_table_placer_row' + i).empty();
-    }
-
-    for (var team of teams) {
-        $('#' + team.name + 'score').text('0');
-    }
+    buildScoreTable();
 }
 
 // moves a place to the team to the RIGHT and updates scores
