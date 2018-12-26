@@ -1,5 +1,5 @@
 # placer
-A cross country scoring aid. You set up the teams in the race, start the timer and as runners cross the finish line, press the team and Placer will keep the score.
+Placer is cross country scoring aid. You set up the teams in the race, start the timer and as runners cross the finish line, press the team and Placer will keep the score.
 
 If you press the wrong team, places can be moved from team to team.
 
@@ -13,7 +13,7 @@ Click the gear icon to go to setting screen and set up your teams.
         
 <img src="https://github.com/lizard43/placer/blob/master/images/setup2.png" width="500">
         
-Save your team and return to the main screen.
+Save your teams and return to the main screen.
 
 <img src="https://github.com/lizard43/placer/blob/master/images/help2.png" width="500">
 
